@@ -9,6 +9,10 @@ Yahoo's endpoints have required a session cookie + crumb token since 2023;
 this client performs that handshake transparently and caches the session,
 refreshing it once automatically if Yahoo returns a 401/403.
 
+For a detailed explanation of how the API and this library work — the
+handshake, the quoteSummary endpoint, what each metric means, the client
+design, and the testing strategy — see [WIKI.md](WIKI.md).
+
 ## Usage
 
 ```go
