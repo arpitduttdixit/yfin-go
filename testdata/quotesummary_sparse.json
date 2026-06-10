@@ -1,0 +1,24 @@
+{
+  "quoteSummary": {
+    "result": [
+      {
+        "summaryDetail": {
+          "maxAge": 1,
+          "trailingPE": {},
+          "dividendYield": {}
+        },
+        "defaultKeyStatistics": {
+          "maxAge": 1,
+          "priceToBook": {"raw": 1.45, "fmt": "1.45"}
+        },
+        "price": {
+          "maxAge": 1,
+          "shortName": "Smallcap Industries Ltd",
+          "symbol": "SMALLCAP.NS",
+          "currency": "INR"
+        }
+      }
+    ],
+    "error": null
+  }
+}

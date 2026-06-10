@@ -1,0 +1,32 @@
+{
+  "quoteSummary": {
+    "result": [
+      {
+        "summaryDetail": {
+          "maxAge": 1,
+          "priceHint": {"raw": 2, "fmt": "2", "longFmt": "2"},
+          "trailingPE": {"raw": 24.53, "fmt": "24.53"},
+          "forwardPE": {"raw": 21.87, "fmt": "21.87"},
+          "dividendYield": {"raw": 0.0285, "fmt": "2.85%"},
+          "volume": {"raw": 5834210, "fmt": "5.83M", "longFmt": "5,834,210"}
+        },
+        "defaultKeyStatistics": {
+          "maxAge": 1,
+          "priceToBook": {"raw": 7.12, "fmt": "7.12"},
+          "trailingEps": {"raw": 63.39, "fmt": "63.39"},
+          "52WeekChange": {"raw": 0.1342, "fmt": "13.42%"},
+          "enterpriseValue": {"raw": 6280000000000, "fmt": "6.28T", "longFmt": "6,280,000,000,000"}
+        },
+        "price": {
+          "maxAge": 1,
+          "regularMarketPrice": {"raw": 1555.4, "fmt": "1,555.40"},
+          "marketCap": {"raw": 6457000000000, "fmt": "6.46T", "longFmt": "6,457,000,000,000"},
+          "shortName": "Infosys Limited",
+          "symbol": "INFY.NS",
+          "currency": "INR"
+        }
+      }
+    ],
+    "error": null
+  }
+}
