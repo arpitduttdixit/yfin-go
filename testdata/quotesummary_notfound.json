@@ -1,0 +1,9 @@
+{
+  "quoteSummary": {
+    "result": null,
+    "error": {
+      "code": "Not Found",
+      "description": "Quote not found for ticker symbol: NOSUCH.NS"
+    }
+  }
+}

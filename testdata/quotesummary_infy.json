@@ -1,0 +1,30 @@
+{
+  "quoteSummary": {
+    "result": [
+      {
+        "summaryDetail": {
+          "maxAge": 1,
+          "trailingPE": {"raw": 24.53, "fmt": "24.53"},
+          "forwardPE": {"raw": 21.87, "fmt": "21.87"},
+          "dividendYield": {"raw": 0.0289, "fmt": "2.89%"},
+          "beta": {"raw": 0.621, "fmt": "0.62"}
+        },
+        "defaultKeyStatistics": {
+          "maxAge": 1,
+          "priceToBook": {"raw": 7.12, "fmt": "7.12"},
+          "trailingEps": {"raw": 63.39, "fmt": "63.39"},
+          "52WeekChange": {"raw": -0.1234, "fmt": "-12.34%"},
+          "enterpriseValue": {"raw": 6100000000000, "fmt": "6.1T"}
+        },
+        "price": {
+          "maxAge": 1,
+          "marketCap": {"raw": 6450000000000, "fmt": "6.45T"},
+          "regularMarketPrice": {"raw": 1554.9, "fmt": "1,554.90"},
+          "currency": "INR",
+          "symbol": "INFY.NS"
+        }
+      }
+    ],
+    "error": null
+  }
+}
