@@ -1,0 +1,87 @@
+{
+  "quoteSummary": {
+    "result": [
+      {
+        "summaryDetail": {
+          "maxAge": 1,
+          "trailingPE": {"raw": 24.53, "fmt": "24.53"},
+          "forwardPE": {"raw": 21.87, "fmt": "21.87"},
+          "dividendYield": {"raw": 0.0289, "fmt": "2.89%"},
+          "payoutRatio": {"raw": 0.64, "fmt": "64.00%"},
+          "beta": {"raw": 0.621, "fmt": "0.62"},
+          "fiftyTwoWeekHigh": {"raw": 1953.9, "fmt": "1,953.90"},
+          "fiftyTwoWeekLow": {"raw": 1311.3, "fmt": "1,311.30"},
+          "fiftyDayAverage": {"raw": 1602.4, "fmt": "1,602.40"},
+          "twoHundredDayAverage": {"raw": 1698.1, "fmt": "1,698.10"},
+          "averageVolume": {"raw": 7250000, "fmt": "7.25M"}
+        },
+        "defaultKeyStatistics": {
+          "maxAge": 1,
+          "priceToBook": {"raw": 7.12, "fmt": "7.12"},
+          "trailingEps": {"raw": 63.39, "fmt": "63.39"},
+          "52WeekChange": {"raw": -0.1234, "fmt": "-12.34%"},
+          "pegRatio": {"raw": 2.41, "fmt": "2.41"},
+          "enterpriseValue": {"raw": 6100000000000, "fmt": "6.1T"},
+          "enterpriseToEbitda": {"raw": 16.8, "fmt": "16.80"},
+          "bookValue": {"raw": 218.4, "fmt": "218.40"},
+          "sharesOutstanding": {"raw": 4150000000, "fmt": "4.15B"},
+          "floatShares": {"raw": 3380000000, "fmt": "3.38B"},
+          "sharesShort": {"raw": 12500000, "fmt": "12.5M"},
+          "shortRatio": {"raw": 1.72, "fmt": "1.72"},
+          "shortPercentOfFloat": {"raw": 0.0037, "fmt": "0.37%"}
+        },
+        "price": {
+          "maxAge": 1,
+          "marketCap": {"raw": 6450000000000, "fmt": "6.45T"},
+          "regularMarketPrice": {"raw": 1554.9, "fmt": "1,554.90"},
+          "currency": "INR",
+          "symbol": "INFY.NS"
+        },
+        "financialData": {
+          "maxAge": 1,
+          "currentPrice": {"raw": 1554.9, "fmt": "1,554.90"},
+          "targetHighPrice": {"raw": 2100.0, "fmt": "2,100.00"},
+          "targetLowPrice": {"raw": 1400.0, "fmt": "1,400.00"},
+          "targetMeanPrice": {"raw": 1825.5, "fmt": "1,825.50"},
+          "recommendationMean": {"raw": 2.1, "fmt": "2.10"},
+          "recommendationKey": "buy",
+          "numberOfAnalystOpinions": {"raw": 41, "fmt": "41"},
+          "totalCash": {"raw": 880000000000, "fmt": "880B"},
+          "totalDebt": {"raw": 95000000000, "fmt": "95B"},
+          "quickRatio": {"raw": 2.05, "fmt": "2.05"},
+          "currentRatio": {"raw": 2.31, "fmt": "2.31"},
+          "debtToEquity": {"raw": 10.4, "fmt": "10.40"},
+          "returnOnAssets": {"raw": 0.187, "fmt": "18.70%"},
+          "returnOnEquity": {"raw": 0.314, "fmt": "31.40%"},
+          "freeCashflow": {"raw": 720000000000, "fmt": "720B"},
+          "operatingCashflow": {"raw": 880000000000, "fmt": "880B"},
+          "earningsGrowth": {"raw": 0.078, "fmt": "7.80%"},
+          "revenueGrowth": {"raw": 0.043, "fmt": "4.30%"},
+          "grossMargins": {"raw": 0.302, "fmt": "30.20%"},
+          "operatingMargins": {"raw": 0.208, "fmt": "20.80%"},
+          "profitMargins": {"raw": 0.171, "fmt": "17.10%"},
+          "financialCurrency": "INR"
+        },
+        "assetProfile": {
+          "maxAge": 1,
+          "sector": "Technology",
+          "industry": "Information Technology Services",
+          "country": "India",
+          "fullTimeEmployees": 317240,
+          "website": "https://www.infosys.com"
+        },
+        "calendarEvents": {
+          "maxAge": 1,
+          "earnings": {
+            "earningsDate": [
+              {"raw": 1721260800, "fmt": "2024-07-18"}
+            ]
+          },
+          "exDividendDate": {"raw": 1717977600, "fmt": "2024-06-10"},
+          "dividendDate": {"raw": 1719360000, "fmt": "2024-06-26"}
+        }
+      }
+    ],
+    "error": null
+  }
+}

@@ -1,6 +1,8 @@
 // Package yfin is a small, zero-dependency Go client for Yahoo Finance's
-// unofficial JSON API, focused on fundamental data (P/E, P/B, EPS,
-// market cap, dividend yield).
+// unofficial JSON API, focused on fundamental data: valuation (P/E, P/B, PEG,
+// EPS, market cap), financial health (ROE, margins, debt, cash flow), analyst
+// coverage (rating, price targets), trading context (beta, 52-week range),
+// company profile (sector, industry), and the earnings/dividend calendar.
 //
 // Yahoo's endpoints require a session cookie + crumb token since 2023.
 // The client performs the handshake automatically, caches it in memory,

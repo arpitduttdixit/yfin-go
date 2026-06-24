@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"text/tabwriter"
+	"time"
 
 	yfin "github.com/arpitduttdixit/yfin-go"
 )
@@ -20,6 +21,7 @@ func main() {
 	client := yfin.New()
 	results, errs := client.BatchFundamentals(symbols)
 
+	// Valuation table.
 	w := tabwriter.NewWriter(os.Stdout, 0, 4, 2, ' ', 0)
 	fmt.Fprintln(w, "SYMBOL\tP/E\tFWD P/E\tP/B\tEPS\tMCAP\tDIV YLD\t52W CHG")
 	for _, symbol := range symbols {
@@ -41,9 +43,46 @@ func main() {
 	}
 	w.Flush()
 
+	// Quality / analyst / profile table — verifies the financialData,
+	// assetProfile and calendarEvents modules populate live.
+	fmt.Println()
+	w2 := tabwriter.NewWriter(os.Stdout, 0, 4, 2, ' ', 0)
+	fmt.Fprintln(w2, "SYMBOL\tROE\tDEBT/EQ\tPROFIT M\tRATING\tTARGET\tSECTOR\tNEXT EARN")
+	for _, symbol := range symbols {
+		f, ok := results[symbol]
+		if !ok {
+			continue
+		}
+		fmt.Fprintf(w2, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
+			f.Symbol,
+			pct(f.ReturnOnEquity),
+			num(f.DebtToEquity, "%.1f"),
+			pct(f.ProfitMargins),
+			str(f.RecommendationKey),
+			num(f.TargetMeanPrice, "%.0f"),
+			str(f.Sector),
+			date(f.NextEarningsDate),
+		)
+	}
+	w2.Flush()
+
 	if len(errs) > 0 {
 		os.Exit(1)
 	}
+}
+
+func str(v *string) string {
+	if v == nil || *v == "" {
+		return "-"
+	}
+	return *v
+}
+
+func date(v *time.Time) string {
+	if v == nil {
+		return "-"
+	}
+	return v.Format("2006-01-02")
 }
 
 func num(v *float64, format string) string {
