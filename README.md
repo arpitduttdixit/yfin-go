@@ -1,8 +1,15 @@
 # yfin-go
 
 A small, zero-dependency Go client for Yahoo Finance's unofficial JSON API,
-focused on fundamental data: P/E, P/B, EPS, market cap, dividend yield, and
-52-week change.
+focused on fundamental data: valuation (P/E, P/B, PEG, EPS, market cap),
+financial health (ROE, margins, debt, cash flow), analyst coverage (rating,
+price targets), trading context (beta, 52-week range), company profile (sector,
+industry), and the earnings/dividend calendar.
+
+All of this comes from a single `quoteSummary` request per symbol — the
+requested modules are listed in `quoteSummaryModules` in `fundamentals.go`, so
+adding more data is a matter of extending that constant and the response
+structs, with no extra HTTP round-trip.
 
 Yahoo's endpoints have required a session cookie + crumb token since 2023
 (which is why older clients like `piquette/finance-go` are broken). This
@@ -36,13 +43,21 @@ results, errs := client.BatchFundamentals([]string{"INFY.NS", "TCS.NS"})
 ```
 
 `Fundamentals` fields (all nilable — absence is normal, especially for
-small caps):
+small caps and non-US listings):
 
-| Field | Source module |
-|---|---|
-| `TrailingPE`, `ForwardPE`, `DividendYield` | summaryDetail |
-| `PriceToBook`, `TrailingEPS`, `Week52Change` | defaultKeyStatistics |
-| `MarketCap` | price |
+| Group | Fields | Source module |
+|---|---|---|
+| Valuation | `TrailingPE`, `ForwardPE`, `PriceToBook`, `TrailingEPS`, `PegRatio`, `EnterpriseValue`, `EnterpriseToEbitda`, `BookValue`, `MarketCap`, `DividendYield`, `PayoutRatio`, `Week52Change` | summaryDetail / defaultKeyStatistics / price |
+| Financial health | `ReturnOnEquity`, `ReturnOnAssets`, `ProfitMargins`, `OperatingMargins`, `GrossMargins`, `DebtToEquity`, `CurrentRatio`, `QuickRatio`, `TotalCash`, `TotalDebt`, `FreeCashflow`, `OperatingCashflow`, `RevenueGrowth`, `EarningsGrowth` | financialData |
+| Analyst coverage | `RecommendationKey`, `RecommendationMean`, `NumberOfAnalystOpinions`, `CurrentPrice`, `TargetMeanPrice`, `TargetHighPrice`, `TargetLowPrice` | financialData |
+| Trading context | `Beta`, `FiftyTwoWeekHigh`, `FiftyTwoWeekLow`, `FiftyDayAverage`, `TwoHundredDayAverage`, `AverageVolume`, `SharesOutstanding`, `FloatShares`, `SharesShort`, `ShortRatio`, `ShortPercentOfFloat` | summaryDetail / defaultKeyStatistics |
+| Company profile | `Sector`, `Industry`, `Country`, `FullTimeEmployees` | assetProfile |
+| Calendar | `NextEarningsDate`, `ExDividendDate`, `DividendDate` (`*time.Time`) | calendarEvents |
+
+`MarketCap`, `EnterpriseValue`, `TotalCash`, `TotalDebt`, `FreeCashflow`,
+`OperatingCashflow` and the share counts are `*int64`; ratios, margins and
+yields are `*float64`; `RecommendationKey`, `Sector`, `Industry`, `Country` and
+`FinancialCurrency` are `*string`; the calendar dates are `*time.Time`.
 
 ## Live verification
 

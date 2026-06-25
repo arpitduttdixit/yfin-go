@@ -243,3 +243,96 @@ func checkFloat(t *testing.T, name string, got *float64, want float64) {
 		t.Errorf("%s = %v, want %v", name, *got, want)
 	}
 }
+
+func checkInt(t *testing.T, name string, got *int64, want int64) {
+	t.Helper()
+	if got == nil {
+		t.Errorf("%s = nil, want %v", name, want)
+		return
+	}
+	if *got != want {
+		t.Errorf("%s = %v, want %v", name, *got, want)
+	}
+}
+
+func checkStr(t *testing.T, name string, got *string, want string) {
+	t.Helper()
+	if got == nil {
+		t.Errorf("%s = nil, want %q", name, want)
+		return
+	}
+	if *got != want {
+		t.Errorf("%s = %q, want %q", name, *got, want)
+	}
+}
+
+// TestFundamentalsRichModules verifies the financialData, assetProfile and
+// calendarEvents modules (plus the extra fields on the original modules) all
+// parse from a fully populated response.
+func TestFundamentalsRichModules(t *testing.T) {
+	mock := &mockYahoo{t: t, crumb: "abc123", fixtures: map[string]string{
+		"INFY.NS": "testdata/quotesummary_full.json",
+	}}
+	srv := httptest.NewServer(mock.handler())
+	defer srv.Close()
+	c := newTestClient(srv)
+
+	f, err := c.Fundamentals("INFY.NS")
+	if err != nil {
+		t.Fatalf("Fundamentals: %v", err)
+	}
+
+	// Extra fields on the original modules.
+	checkFloat(t, "Beta", f.Beta, 0.621)
+	checkFloat(t, "PegRatio", f.PegRatio, 2.41)
+	checkFloat(t, "FiftyTwoWeekHigh", f.FiftyTwoWeekHigh, 1953.9)
+	checkInt(t, "EnterpriseValue", f.EnterpriseValue, 6100000000000)
+	checkInt(t, "SharesOutstanding", f.SharesOutstanding, 4150000000)
+
+	// financialData.
+	checkFloat(t, "ReturnOnEquity", f.ReturnOnEquity, 0.314)
+	checkFloat(t, "DebtToEquity", f.DebtToEquity, 10.4)
+	checkFloat(t, "ProfitMargins", f.ProfitMargins, 0.171)
+	checkInt(t, "TotalDebt", f.TotalDebt, 95000000000)
+	checkInt(t, "FreeCashflow", f.FreeCashflow, 720000000000)
+	checkFloat(t, "RecommendationMean", f.RecommendationMean, 2.1)
+	checkStr(t, "RecommendationKey", f.RecommendationKey, "buy")
+	checkInt(t, "NumberOfAnalystOpinions", f.NumberOfAnalystOpinions, 41)
+	checkFloat(t, "TargetMeanPrice", f.TargetMeanPrice, 1825.5)
+	checkStr(t, "FinancialCurrency", f.FinancialCurrency, "INR")
+
+	// assetProfile.
+	checkStr(t, "Sector", f.Sector, "Technology")
+	checkStr(t, "Industry", f.Industry, "Information Technology Services")
+	checkStr(t, "Country", f.Country, "India")
+	checkInt(t, "FullTimeEmployees", f.FullTimeEmployees, 317240)
+
+	// calendarEvents (Unix timestamps → time.Time).
+	if f.NextEarningsDate == nil || f.NextEarningsDate.Unix() != 1721260800 {
+		t.Errorf("NextEarningsDate = %v, want unix 1721260800", f.NextEarningsDate)
+	}
+	if f.ExDividendDate == nil || f.ExDividendDate.Unix() != 1717977600 {
+		t.Errorf("ExDividendDate = %v, want unix 1717977600", f.ExDividendDate)
+	}
+}
+
+// TestFundamentalsSparseRichModules confirms that when the new modules are
+// entirely absent (common for small caps), their fields stay nil and no error
+// is raised — the same graceful-degradation contract as the original fields.
+func TestFundamentalsSparseRichModules(t *testing.T) {
+	mock := &mockYahoo{t: t, crumb: "abc123", fixtures: map[string]string{
+		"SMALLCAP.NS": "testdata/quotesummary_sparse.json",
+	}}
+	srv := httptest.NewServer(mock.handler())
+	defer srv.Close()
+	c := newTestClient(srv)
+
+	f, err := c.Fundamentals("SMALLCAP.NS")
+	if err != nil {
+		t.Fatalf("missing modules must not be an error, got: %v", err)
+	}
+	if f.ReturnOnEquity != nil || f.Sector != nil || f.NextEarningsDate != nil ||
+		f.RecommendationKey != nil || f.TotalDebt != nil {
+		t.Errorf("expected nil for absent rich-module fields, got %+v", f)
+	}
+}
